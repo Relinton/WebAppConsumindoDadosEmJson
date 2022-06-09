@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h4 class="text-center">Consumindo Json via Ajax</h4>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Sítio</th>
+        </tr>
+    </thead>
+</table>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            //Chama o método BuscarDados que vai retornar o JSON e mostrar na tabela
+            $.getJSON("/Home/BuscarDados",
+                function (json) {
+                    var tr;
+                    //Anexa cada linha na tabela HTML
+                    for (var i = 0; i < json.length; i++) {
+                        tr = $('<tr/>');
+                        tr.append("<td>" + json[i].nome + "</td>");
+                        tr.append("<td>" + json[i].sitio + "</td>");
+                        $('table').append(tr);
+                    }
+                });
+        });
+    </script>
+
+
+
+    @*<script type="text/javascript">
+        $(function () {
+            $.ajax({
+                dataType: "json",
+                type: "GET",
+                url: "/Home/BuscarDados",
+                success: function (dados) {
+                    $(dados).each(function (i) {
+                        document.writeln("<p>Nome: " + dados[i].nome + " | Sitio: " + dados[i].sitio + "</p>")
+                    });
+                }
+            });
+        });
+    </script>
+
+
+
+    <script type="text/javascript">
+        $(function () {
+            $.ajax({
+                dataType: "json",
+                type: "POST",
+                url: "/Home/GetDados",
+                data: { quantidade: 10 },
+                success: function (dados) {
+                    $(dados).each(function (i) {
+                        document.writeln("<p>Nome: " + dados[i].nome + "</p>")
+                    });
+                }
+            });
+        });
+    </script>*@
+}
